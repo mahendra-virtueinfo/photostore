@@ -9,4 +9,17 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Photostore::Application.config.secret_key_base = '73dd4f11f574ec9d73c8e033abf5bc4b5cd91389cd43717d9ec8363ab8d7ddd3776c4ac72293eeed0cd8c22ff8eb4f107e8f794680116cb01aee9dbe001a4ed6'
+require 'securerandom'
+
+def secure_token
+  token_file = Rails.root.join('.secret')
+  if File.exists?(token_file)
+    File.read(token_file).chomp
+  else
+    token = SecureRandom.hex(64)
+    File.write(token_file, token)
+    token
+  end
+end
+
+Photostore::Application.config.secret_key_base = secure_token

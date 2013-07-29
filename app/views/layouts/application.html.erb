@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Ruby on Rails Tutorial Sample App | <%= yield(:title) %></title>
+  <title><%= full_title(yield(:title)) %></title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <%= render 'layouts/shim' %>
 </head>
 <body>
-    <div class="container">
-      <% flash.each do |key, value| %>
-        <div class="alert alert-<%= key %>"><%= value %></div>
-      <% end %> 
-      <div class="row">
-        <div class="span9" style="width:700px">
-          <%= yield %>
-        </div>
-      </div><!--/row-->           
-    </div>
+  <%= render 'layouts/header' %>
+  <div class="container">
+    <%= yield %>
+    <%= render 'layouts/footer' %>
+  </div>
 </body>
 </html>
